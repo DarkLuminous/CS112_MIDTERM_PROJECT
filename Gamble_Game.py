@@ -5,47 +5,20 @@ from time import sleep
 from tkinter import END
 from turtle import clear
 
-NumberToGuess = 0
-playAgain = 0
-Again = 0
 Money = 100
-betMoney = 0
-GuessedNumber = 0
 
-#=========================================================================        
-#text art
-zEro = "=========\n   000\n  0   0\n  0   0\n  0   0\n   000\n========="
-    #print(zero)
+TextArt = {#Winning Number Display
+           0:"=========\n   000\n  0   0\n  0   0\n  0   0\n   000\n=========",
+           1:"=========\n    1\n   11\n    1\n    1\n   111\n=========",
+           2:"=========\n   222\n  2   2\n     2\n    2\n  22222\n=========",
+           3:"=========\n   333\n  3   3\n    33\n  3   3\n   333\n=========",
+           4:"=========\n   444\n  4  4\n  4  4\n  44444\n     4\n=========",
+           5:"=========\n  5555\n  5\n  555\n     5\n  555\n=========",
+           6:"=========\n   666\n  6    \n  6666\n  6   6\n   666\n=========",
+           7:"=========\n  77777\n     7\n    7\n   7\n   7\n=========",
+           8:"=========\n   888\n  8   8\n   888\n  8   8\n   888\n=========",
+           9:"=========\n   999\n  9   9\n   9999\n      9\n   999\n========="}                                                
 
-oNe = "=========\n    1\n   11\n    1\n    1\n   111\n========="
-        #print (one)
-
-tWo = "=========\n   222\n  2   2\n     2\n    2\n  22222\n========="
-        #print(two)
-
-thRee = "=========\n   333\n  3   3\n    33\n  3   3\n   333\n========="
-        #print(three)
-
-fOur = "=========\n   444\n  4  4\n  4  4\n  44444\n     4\n========="
-        #print(four)
-
-fIve = "=========\n  5555\n  5\n  555\n     5\n  555\n========="
-        #print(five)
-
-sIx = "=========\n   666\n  6    \n  6666\n  6   6\n   666\n========="
-        #print(six)
-
-seVen = "=========\n  77777\n     7\n    7\n   7\n   7\n========="
-        #print(seven)
-
-eiGht = "=========\n   888\n  8   8\n   888\n  8   8\n   888\n========="
-        #print(eight)
-
-nIne = "=========\n   999\n  9   9\n   9999\n      9\n   999\n========="
-    
-        #print(nine)
-
-#============================================================================
 
 def Play_Gamble():
     global Money
@@ -131,8 +104,6 @@ def Second_Phase():
 
 def Third_Phase():
     
-
-    
     while True:
      print(f"Your GUESSED NUMBER is: {GuessedNumber}")
      print(f"And BET: {betMoney}$")
@@ -146,7 +117,7 @@ def Third_Phase():
       print("Numbers Only Please!")
                             
      elif int(Again) < 1 or int(Again) > 2:
-      print("Invalid Number, please enter 1 for YES or 2 for NO.")
+      print("Invalid Number, please enter 1 for YES or 2 for NO. only!")
 
      elif int(Again) == 1:
       os.system('cls')
@@ -164,31 +135,9 @@ def Third_Phase():
 def Final_Phase():
  global betMoney
  global Money
+ WinNum_Display = TextArt.get(NumberToGuess)
 
-#*********TEXT ART**************************
- if int(NumberToGuess) == 0:
-      Dis_NumberToGuess = zEro
- elif int(NumberToGuess) == 1:
-      Dis_NumberToGuess = oNe
- elif int(NumberToGuess) == 2:
-      Dis_NumberToGuess = tWo
- elif int(NumberToGuess) == 3:
-      Dis_NumberToGuess = thRee
- elif int(NumberToGuess) == 4:
-      Dis_NumberToGuess = fOur
- elif int(NumberToGuess) == 5:
-      Dis_NumberToGuess = fIve
- elif int(NumberToGuess) == 6:
-      Dis_NumberToGuess = sIx
- elif int(NumberToGuess) == 7:
-      Dis_NumberToGuess = seVen
- elif int(NumberToGuess) == 8:
-      Dis_NumberToGuess = eiGht
- elif int(NumberToGuess) == 9:
-      Dis_NumberToGuess = nIne 
-#********************************************
-
- if int(GuessedNumber) == int(NumberToGuess):               #WON output
+ if int(GuessedNumber) == int(NumberToGuess): #WON output
   
   os.system('cls')
   Money = (int(betMoney) * 2 )
@@ -197,11 +146,11 @@ def Final_Phase():
   
   Play_Gamble_Again()
   
- else:
-  Money = (int(Money) - int(betMoney))                      #Lose output
+ else:                                        #LOSE output
+  Money = (int(Money) - int(betMoney))                     
   
   print("You Lose!")
-  print(f"The Answer is:\n{Dis_NumberToGuess}")
+  print(f"The Answer is:\n{WinNum_Display}")
   print(f"Your Money Deducted, Now you have only:{int(Money)}$")  
 
   Play_Gamble_Again()
@@ -232,15 +181,16 @@ def Play_Gamble_Again():
 def End_game():
       
       if Money == 0:
-         print("You Dont have enough Money to Continue playing")         #output if 0 Money
+         print("You Dont have enough Money to Continue playing")         #only print if Money is zero
     
+      print(f"You Exit with a total money of:{Money}$")
       print("Thank you For Playing!")
       sleep(1)
       os.system('cls')
       
       print("The_Gamble by Roger Bao Jr. And Hakima Abdulkarim")
       sleep(1)
-      exit()                                                              #END
+      exit()
    
       
 Play_Gamble()
